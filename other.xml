@@ -1,0 +1,25 @@
+<application>
+  <component name="PropertiesComponent">
+    <property name="DeploymentNotificationsComponent.WarnDisplayed.Java7&amp;Windows7FTPIssue" value="false" />
+    <property name="ExpandBeforeRunStepsPanel" value="true" />
+    <property name="ExpandRunDashboardTypesPanel" value="true" />
+    <property name="FrameworksFinderRecursivePanel[0]" value="0.4683841" />
+    <property name="android-component-compatibility-check" value="1515676421101" />
+    <property name="com.intellij.openapi.roots.ui.configuration.TabbedModuleEditor.selectedEditor" value="Dependencies" />
+    <property name="com.intellij.remoteServer.impl.runtime.ui.ServersToolWindowContent:com.intellij.remoteServer.impl.runtime.ui.DefaultRemoteServersViewContribution.0" value="300" />
+    <property name="defaultJdkConfigured" value="true" />
+    <property name="evlsprt3.173" value="13" />
+    <property name="evlsprt3.183" value="14" />
+    <property name="file.gist.reindex.count" value="2" />
+    <property name="fileTypeChangedCounter" value="1" />
+    <property name="installed.kotlin.plugin.version" value="1.3.11-release-IJ2018.3-1" />
+    <property name="javaee.appServer.lastUsedIntegration" value="JBoss Server" />
+    <property name="javaee.appServer.lastUsedServer" value="JBoss 8.0.0.Final" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="lastTip" value="2" />
+    <property name="project.wizard.group" value="JavaEE" />
+    <property name="project.wizard.template" value="Java" />
+    <property name="run.configuration.edit.ad" value="true" />
+    <property name="ts.lib.d.ts.version" value="3.2.1" />
+  </component>
+</application>
