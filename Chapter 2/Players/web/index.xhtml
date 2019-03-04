@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Player Bean</title>
+        
+        <style type="text/css">
+            .red {
+                color:#cc0000;
+            }
+            .blue {
+                color: #0000cc;
+            }
+        </style>
+        
+        <script type="text/javascript">
+            function infoJS (name,surname) {
+                alert ("Name : " + name + " Surname: " + surname);
+            }
+        </script>
+    </h:head>
+    
+    
+    
+    <h:body>
+            <h:outputText value ="#{playerBean.playerName}"/>
+            <br/>
+            #{playerBean.play}
+            #{playerBean.play == "Left"}
+            #{playerBean.play == "Right"}<br/>
+            #{playerBean.titles_2013[0]}<br/>
+            <h3>The Hard way</h3>
+            <br/>
+            <c:forEach begin="0"
+                       end="${fn:length(playerBean.titles_2013)-1}"
+                       var="i">
+                       #{playerBean.titles_2013[i]},
+            </c:forEach>
+            <h3>Easy Way</h3>
+            <br/>
+            <c:forEach var="title" items="#{playerBean.titles_2013}"
+                       varStatus="v">
+                <i>#{title}</i>
+                #{v.last ? '' : ','}
+            </c:forEach>
+            <h3>Mapping with JSF</h3>
+            <b>#{playerBean.matchFacts.Aces}</b><br/>
+            <b>#{playerBean.matchFacts["Double Faults"]}</b>
+            
+            <h3>Call the function</h3>
+            #{playerBean.vamosRafa_1()}
+            #{playerBean.vamosRafa_2()}<br/>
+            #{playerBean.vamosRafa_3("HohoHahaha")}
+            #{playerBean.vamosRafa_4(playerBean.playerName,playerBean.playerSurname)} <br/>
+            
+            <h:form>
+                <h:commandButton action="#{playerBean.vamosRafa_5()}" value="Vamos ..."/>
+            </h:form>
+            
+            <br/>
+            <h3>Java Script Function</h3>
+            <h:form>
+                <h:commandButton type="button" value="Click Me!"
+                                 onclick="infoJS('#{playerBean.playerName}','#{playerBean.playerSurname}')"/>
+            </h:form>
+            
+            <h3>Combining CSS with JSF</h3>
+            <hr/>
+            <h:outputText styleClass="#{playerBean.play == 'Left' ? 'red' : 'blue'}" value="#{playerBean.play}"></h:outputText>
+
+            <br/>
+            <h3>Ajax and CSS</h3>
+            <hr/>
+            <h:form id="prizeFormId">
+                <h:commandButton value="Show Career Prize Money">
+                    <f:ajax render="rnprizeid" listener="#{playerBean.showPrizeMoney()}"/>
+                </h:commandButton>
+                <h:panelGrid id="rnprizeid">
+                    <h:outputText value="#{playerBean.prize}"
+                                  rendered="#{playerBean.show_prize}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </h:panelGrid>
+                <h:commandButton value="Hide Career Prize Money">
+                    <f:ajax render="rnprizeid"
+                            listener="#{playerBean.hidePrizeMoney()}"/>
+                </h:commandButton>
+            </h:form>
+            
+            <br/>
+            <h3>Hidden Picture</h3>
+            <hr/>
+            <ui:fragment rendered="#{playerBean.show_racquet}">
+                <img src="#{resource['images:test.png']}" width="118" height="118"/>
+            </ui:fragment>
+            
+            <h:form>
+                <h:selectBooleanCheckbox label="Show Image"
+                                         valueChangeListener="#{playerBean.showHideRacquetPicture}">
+                    <f:ajax render="racquetId"/>
+                </h:selectBooleanCheckbox>
+                <h:panelGroup id="racquetId">
+                    <ui:fragment rendered="#{playerBean.show_racquet}">
+                        <img src="resources/images/test.png" width="118" height="118"/>
+                    </ui:fragment>
+                </h:panelGroup>
+            </h:form>
+            
+        <h:dataTable id="atpTableId" value="#{atp}" var="t">
+            <h:column>
+                #{t}
+            </h:column>
+        </h:dataTable>
+            
+              <b>Ordered</b><br/>
+        <h:dataTable id="atpTableId1"
+                     value="#{atp.singlesRankings}"
+                     var="t">
+            <h:column>#{t}</h:column>
+        </h:dataTable>
+        
+        <br/><br/><b>Reversed:</b><br/>
+        <h:dataTable id="atpTableId2"
+                     value="#{atp.singlesRankingsReversed}"
+                     var="t">
+            <h:column>#{t}</h:column>
+        </h:dataTable>
+        
+        <br/><br/><b>UpperCase</b><br/>
+        <h:dataTable id="atpTableId3"
+                     value="#{atp.singlesRankingsUpperCase}"
+                     var="t">
+            <h:column>#{t}</h:column>
+        </h:dataTable>
+            
+          
+        <h:form>
+            CLick to send name Rafael surname, Nadal with f:param:
+            <h:commandButton value="Send Rafael Nadal"
+                             action="#{playerBean.parametersAction()}">
+                <f:param id="playerName" name="playerNameParam" value="Rafael"/>
+                <f:param id="playerSurname" name="playerSurnameParam"
+                         value="Nadal"/>             
+            </h:commandButton>
+        </h:form>
+        
+        <h4>Using Link to send the value</h4>
+        <h:link value="Send Rafael Nadal" outcome="result">
+            <f:param id="playerName" name="playerNameParam" value="Rafel"/>
+            <f:param id="playerSurname" name="playerSurnameParam" value="Nadal"/> 
+        </h:link>
+        
+        <h4>Using metadata and view Param</h4>
+        
+        <f:metadata>
+            <f:viewParam name="playernameparam" required="true"
+                         requiredMessage="Player name Required!"
+                         value="#{playerBean.playerName}"/>
+            <f:viewParam name="playersurnameparam" required="true"
+                         requiredMessage="Player surname required!"
+                         value="#{playerBean.playerSurname}"/>
+        </f:metadata>
+        
+        <h:form>
+            Enter name:<h:inputText value="#{playerBean.playerName}"/>
+            Enter name:<h:inputText value="#{playerBean.playerSurname}"/>
+            <h:commandButton value="Submit"
+                             action="result?faces-redirect=true&amp;includeViewParams=false"/>
+        </h:form>
+        
+        <br/><br/>
+        <h:form>
+            Enter name: <h:inputText value="#{playerBean.playerName}"/>
+            Enter name: <h:inputText value="#{playerBean.playerSurname}"/>
+            <h:commandButton value="Submit" action="#{playerBean.toUpperCase()}"/>
+        </h:form>
+        
+        <f:metadata>
+            <f:viewParam id="nameId" name="playernameparam"
+                         validator="playerValidator"
+                         value="#{playerBean.playerName}"/>
+            <f:viewParam id="surnameId" name="playersurnameparam"
+                         validator="playerValidator"
+                         value="#{playerBean.playerSurname}"/>
+        </f:metadata>
+        <br/><br/>
+        You requested name: <h:outputText value="#{playerBean.playerName}"/><br/>
+        You requested surname: <h:outputText value="#{playerBean.playerSurname}"/>
+        <br/><br/>
+        <h:form>
+            THis page send a java.util.Date in URL of date.xhtml page
+            <h:commandButton value="Send Date" action="#{dateBean.sendDate()}"/>
+        </h:form>
+        <br/><br/>
+        <h:form>
+            Click to send name Rafael and Surname Nadal with f:attribute:
+            <h:commandButton actionListener="#{playerBean.attributeAction}">
+                <f:attribute name="value" value="Send Rafel Nadal"/>
+                <f:attribute id="playerName" name="playerNameAttr" value="Rafael"/>
+                <f:attribute id="playerSurname" name="playerSurnameAttr" value="Nadal"/>
+            </h:commandButton>
+        </h:form>
+        
+        <br/><br/>
+        <h:form>
+            <h:inputText binding="#{playerBeanAttribute.htmlInputText}" value="#{playerBeanAttribute.playerNameSurname}">
+                <f:attribute name="playerNameAttr" value="Rafael Nadal123"/>
+            </h:inputText>
+        </h:form>
+        
+        <br/><br/>
+        
+        <h:form>
+            Click to sned name Rafael and surname Nadal with f:setPropertyctionlistener
+            <h:commandButton value="Send Rafel Nadal 1">
+                <f:setPropertyActionListener id="playerName" target="#{playerBeanActionListener.playerName}" value="Rafael"/>
+                <f:setPropertyActionListener id="playerSurname" target="#{playerBeanActionListener.playerSurname}" value="Nadal"/>
+            </h:commandButton>
+        </h:form>
+        
+        <br/>
+        
+        <h:form>
+            CLick to send name Rafael and surname Nadal with f:setProeprtyactionListerner
+            <h:commandButton value="Send Rafael Nadal 2" actionListener="#{playerBeanActionListener.parametersActionListener}">
+                <f:setPropertyActionListener id="playerName" target="#{playerBeanActionListener.playerName}" value="Rafael"/>
+                <f:setPropertyActionListener id="playerSurname" target="#{playerBeanActionListener.playerSurname}" value="Nadal"/>
+            </h:commandButton>
+        </h:form>
+        
+        <h:form>
+            Click to send name Rafael and surname nadal with f:setPropertyactionListener
+            <h:commandButton value="Send Rafael Nadal 3" actionListener="#{playerBeanActionListener.parametersAction()}">
+                <f:setPropertyActionListener id="playerName" target="#{playerBeanActionListener.playerName}" value="Rafael"/>
+                <f:setPropertyActionListener id="playerSurname" target="#{playerBeanActionListener.playerSurname}" value="Nadal"/>
+            </h:commandButton>
+        </h:form>
+        
+        <br/><br/>
+        <h:form id="playerFormId">
+            <h:inputText id="playerNameId" value="#{playerBeanUIComponent.playerName}"/>
+            <h:inputText id="playerSurnameId" value="#{playerBeanUIComponent.playerSurname}"/>
+            <h:commandButton value="Process" action="#{playerBeanUIComponent.processAction()}"/>
+        </h:form>
+        
+    </h:body>
+</html>
+

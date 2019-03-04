@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        #{tehkesih.rows = 5;''}
+        <h:dataTable value="#{playerBeanHiddenAttribute.dataArrayList}" binding="#{tehkesih}" var="t" border="1">
+            <h:column>
+                <f:facet name="header">
+                    Ranking
+                </f:facet>
+                #{t.ranking}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Name
+                </f:facet>
+                #{t.player}
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    Age
+                </f:facet>
+                #{t.age}
+            </h:column>
+        </h:dataTable>
+    
+    <h:panelGroup>
+        Get data about the above table using binding:<br/>
+        Row count: <h:outputText value="#{tehkesih.rowCount}"/><br/>
+        First: <h:outputText value="#{tehkesih.first}"/><br/>
+    </h:panelGroup>
+    
+    <hr/><hr/><br/><br/>
+    <h:form>
+            <h:dataTable value="#{playerBeanHiddenAttributeBean.dataArrayList}" binding="#{playerBeanHiddenAttributeBean.table}" var="ta" border="1">
+                <h:column>
+                    <f:facet name="header">                       
+                        Ranking                        
+                    </f:facet>
+                    #{ta.ranking}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Name
+                    </f:facet>
+                    #{ta.player}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Age
+                    </f:facet>
+                    #{ta.age}
+                </h:column>  
+            </h:dataTable>
+    <h:commandButton value="Table Info (see log)" action="#{playerBeanHiddenAttributeBean.tableAction()}"/>
+        </h:form>
+    
+    <hr/><hr/><br/><br/>
+        
+        <h:form>
+            <h:commandButton value="Greetings on Log" action="#{profileBean.greetingAction()}"/>
+        </h:form>
+    
+    <hr/><hr/><br/><br/>
+        <h:form>
+            Put in application map the 'Rafael Nadal' text [PRESS THIS FIRST]:            
+            <h:commandButton value="Set 'Rafael Nadal' in application map" action="#{playerBeanSet.playerSetAction()}"/>            
+        </h:form>
+        <h:form>
+            Get from application map the 'Rafael Nadal' text [PRESS THIS SECOND]:            
+            <h:commandButton value="Get 'Rafael Nadal' in application map" action="#{playerBeanGet.playerGetAction()}"/>            
+        </h:form>
+    
+    <hr/><br/><br/>
+    
+        First, Press this to initialize the session bean:
+        <h:form>
+            Name: <h:inputText value="#{playerBeanProgrammatically.playerName}"/>
+            Surname: <h:inputText value="#{playerBeanProgrammatically.playerSurname}"/>
+            <h:commandButton value="Set player name and surname" action="players"/>
+        </h:form>
+        Second, Press this to find session bean in request bean
+        <h:form>
+            <h:commandButton value="View Profile On Log" action="#{profileBeanProgrammatically.viewProfile()}"/>
+        </h:form>
+    </h:body>
+</html>
