@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping ext="klib" type="ARCHIVE" />
+      <mapping ext="db" type="PLAIN_TEXT" />
       <mapping ext="xml2" type="XML" />
     </extensionMap>
   </component>
